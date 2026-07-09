@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <!-- iOS / iPadOS Tam Ekran ve Güvenli Alan Optimizasyonu -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="logo.svg">
+    <title>Quince</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+    <!-- P2P Ağı için PeerJS -->
+    <script src="https://unpkg.com/peerjs@1.5.1/dist/peerjs.min.js"></script>
+</head>
+<body>
+    <!-- GİRİŞ VE LOBİ EKRANI -->
+    <div id="lobby-screen" class="screen active">
+        <header>
+            <img src="logo.svg" alt="Logo" class="logo">
+            <h1>Quince</h1>
+        </header>
+        
+        <div class="container">
+            <div class="player-profile">
+                <input type="text" id="player-name" placeholder="Oyuncu Adınız" maxlength="15">
+            </div>
+
+            <div class="game-selector">
+                <button class="game-btn active" data-game="quince">Quince</button>
+                <button class="game-btn locked" data-game="boqueron">Boquerón</button>
+                <button class="game-btn locked" data-game="pisti">Pişti</button>
+            </div>
+
+            <div class="card panel">
+                <h3>Oda Kur (Host)</h3>
+                <label>
+                    <input type="checkbox" id="mod-only-toggle"> Sadece Moderatör Ol (Oynama, Herkesi Gör)
+                </label>
+                <div class="custom-rules">
+                    <button id="add-custom-card-btn" class="btn-small">Özel Kart Yarat</button>
+                    <ul id="custom-cards-list"></ul>
+                </div>
+                <button id="host-btn" class="btn primary">Oda Kur</button>
+            </div>
+
+            <div class="card panel">
+                <h3>Odaya Katıl</h3>
+                <input type="text" id="room-code-input" placeholder="5 Haneli Oda Kodu" maxlength="5">
+                <button id="join-btn" class="btn secondary">Katıl</button>
+            </div>
+            
+            <p id="status-text" class="status"></p>
+        </div>
+    </div>
+
+    <!-- OYUN BEKLEME VE OYNAMA EKRANI -->
+    <div id="game-screen" class="screen">
+        <div class="game-header">
+            <span>Oda: <b id="display-room-code"></b></span>
+            <span id="turn-indicator">Sıra Bekleniyor...</span>
+            <button id="start-game-btn" class="btn-small hidden">Oyunu Başlat</button>
+        </div>
+
+        <!-- Moderatör Görünümü (Anti-Cheat & God Mode) -->
+        <div id="moderator-view" class="hidden">
+            <h3>Moderatör Paneli (Oyuncu Kartları)</h3>
+            <div id="all-players-hands" class="mod-grid"></div>
+        </div>
+
+        <!-- Normal Oyun Alanı -->
+        <div id="play-area">
+            <div class="opponents" id="opponents-container"></div>
+            
+            <div class="center-board">
+                <div class="deck" id="draw-pile">Desteden Çek</div>
+                <div class="discard-pile" id="discard-pile">
+                    <!-- Atılan kart buraya gelecek -->
+                </div>
+                <div id="current-color-indicator" class="color-indicator hidden"></div>
+            </div>
+
+            <div class="my-hand-container">
+                <div class="my-info">
+                    <span id="my-name-display">Ben</span>
+                    <button id="uno-btn" class="btn-small danger">QUINCE!</button>
+                </div>
+                <div class="my-hand" id="my-hand"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Renk Seçim Modalı (Wild kart atıldığında) -->
+    <div id="color-picker-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Renk Seçin</h3>
+            <div class="color-options">
+                <button class="color-btn red" onclick="submitColor('red')"></button>
+                <button class="color-btn blue" onclick="submitColor('blue')"></button>
+                <button class="color-btn green" onclick="submitColor('green')"></button>
+                <button class="color-btn yellow" onclick="submitColor('yellow')"></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
