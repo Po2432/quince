@@ -1,0 +1,61 @@
+:root {
+    --bg: #0f172a; --panel: #1e293b; --text: #f8fafc;
+    --primary: #e94560; --secondary: #3b82f6; --danger: #ef4444;
+    --red: #ff3b30; --blue: #007aff; --green: #34c759; --yellow: #ffcc00;
+    --dark: #222;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, sans-serif; user-select: none; }
+body {
+    background-color: var(--bg); color: var(--text);
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    overflow: hidden; height: 100vh;
+}
+header { text-align: center; padding: 20px 0; display: flex; justify-content: center; align-items: center; gap: 15px; }
+.logo { width: 40px; height: 40px; }
+.screen { display: none; height: 100%; width: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.screen.active { display: block; }
+.container { max-width: 500px; margin: 0 auto; padding: 20px; }
+.panel { background: var(--panel); padding: 20px; border-radius: 16px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+input[type="text"] { width: 100%; padding: 15px; border-radius: 8px; border: 1px solid #333; background: #fff; color: #000; font-size: 16px; margin-bottom: 10px; }
+.btn { width: 100%; padding: 15px; border-radius: 8px; font-size: 18px; font-weight: bold; border: none; cursor: pointer; transition: 0.2s; color: white; }
+.btn:active { transform: scale(0.98); }
+.primary { background: var(--primary); }
+.secondary { background: var(--secondary); }
+.danger { background: var(--danger); }
+.btn-small { padding: 8px 12px; border-radius: 6px; font-size: 14px; border: none; background: #475569; color: white; cursor: pointer; }
+.game-selector { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; }
+.game-btn { flex: 1; min-width: 100px; padding: 10px; border-radius: 8px; border: none; background: #334155; color: white; }
+.game-btn.active { background: var(--primary); font-weight: bold; }
+.game-btn.locked { opacity: 0.5; text-decoration: line-through; }
+.hidden { display: none !important; }
+
+/* OYUN ALANI (Game Board) */
+#play-area { display: flex; flex-direction: column; height: calc(100vh - 60px); justify-content: space-between; padding: 10px; }
+.game-header { background: var(--panel); padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; border-radius: 0 0 16px 16px; }
+.opponents { display: flex; gap: 10px; overflow-x: auto; padding: 10px; justify-content: center; }
+.opponent { background: #334155; padding: 10px; border-radius: 10px; text-align: center; min-width: 80px; }
+.opponent.active-turn { box-shadow: 0 0 15px var(--primary); border: 2px solid var(--primary); }
+.center-board { display: flex; justify-content: center; align-items: center; gap: 20px; flex-grow: 1; }
+.playing-card { width: 70px; height: 100px; border-radius: 8px; border: 2px solid white; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 24px; color: white; text-shadow: 1px 1px 2px black; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.5); }
+.playing-card.red { background: var(--red); }
+.playing-card.blue { background: var(--blue); }
+.playing-card.green { background: var(--green); }
+.playing-card.yellow { background: var(--yellow); }
+.playing-card.dark { background: var(--dark); }
+.my-hand-container { background: var(--panel); padding: 15px; border-radius: 16px 16px 0 0; }
+.my-info { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: bold; }
+.my-hand { display: flex; gap: -30px; overflow-x: auto; padding-bottom: 10px; }
+.my-hand .playing-card { margin-right: -30px; transition: 0.2s; }
+.my-hand .playing-card:hover { transform: translateY(-15px); }
+
+/* Moderatör God Mode */
+.mod-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; }
+.mod-player { background: #1e293b; padding: 10px; border-radius: 8px; }
+.mod-cards { display: flex; flex-wrap: wrap; gap: 5px; transform: scale(0.6); transform-origin: top left; }
+
+/* Renk Seçici Modal */
+.modal { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 100; }
+.modal-content { background: var(--panel); padding: 30px; border-radius: 16px; text-align: center; }
+.color-options { display: flex; gap: 15px; margin-top: 20px; }
+.color-btn { width: 50px; height: 50px; border-radius: 25px; border: 3px solid white; cursor: pointer; }
+.color-indicator { width: 30px; height: 30px; border-radius: 15px; border: 2px solid white; }
